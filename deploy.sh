@@ -7,7 +7,7 @@ set -o errexit -o nounset -o pipefail -o xtrace
 
 echo -e "\n[***] Deploying...\n"
 
-BIN_NAME=rpi-playground
+BIN_NAME=rpi_playground
 SERVICE_ACTION="${1-}"
 
 readonly TARGET_HOST=rpi

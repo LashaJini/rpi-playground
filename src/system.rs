@@ -3,6 +3,7 @@ use std::fs::File;
 use std::io::{BufRead, BufReader};
 use std::result;
 
+#[derive(Debug)]
 pub enum Error {
     UknownModel,
 }
@@ -14,6 +15,8 @@ impl fmt::Display for Error {
         }
     }
 }
+
+impl std::error::Error for Error {}
 
 pub type Result<T> = result::Result<T, Error>;
 
@@ -52,9 +55,18 @@ pub fn parse_proc_cpuinfo() -> Result<Model> {
         Err(_) => return Err(Error::UknownModel),
     });
 
+    let mut hardware = String::new();
+    let mut revision = String::new();
     for line in proc_cpuinfo.lines().flatten() {
-        println!("{}", line);
+        if let Some(line) = line.strip_prefix("Hardware\t: ") {
+            hardware = String::from(line);
+        } else if let Some(line_value) = line.strip_prefix("Revision\t: ") {
+            revision = String::from(line_value).to_lowercase();
+        }
     }
+
+    println!("Hardware is {}", &hardware);
+    println!("Revision is {}", &revision);
 
     let model = Model::RaspberryPi4B;
     Ok(model)
