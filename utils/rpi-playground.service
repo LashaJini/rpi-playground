@@ -1,0 +1,11 @@
+[Unit]
+Description=RPI Playgorund
+After=multi-user.target
+
+[Service]
+ExecStart=/home/pi/ws/rpi-playground
+Restart=always
+RestartSec=10s
+
+[Install]
+WantedBy=multi-user.target

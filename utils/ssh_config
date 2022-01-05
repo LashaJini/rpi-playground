@@ -1,0 +1,4 @@
+Host rpi
+  Hostname 192.168.100.2
+  User pi
+  IdentityFile ~/.ssh/rpi
