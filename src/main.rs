@@ -1,8 +1,9 @@
-use ::rpi_playground_lib::system::{DeviceInfo, Result};
+use ::rpi_playground_lib::system::{self, DeviceInfo};
 
-fn main() -> Result<()> {
-    let model = DeviceInfo::new()?.get_model();
-    println!("Model: {}", model);
+fn main() -> system::Result<()> {
+    let model = DeviceInfo::new()?.get_model()?;
+
+    println!("{}", model);
 
     Ok(())
 }
